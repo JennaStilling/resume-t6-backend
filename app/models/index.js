@@ -25,5 +25,14 @@ db.project = require("./project.model.js")(sequelize, Sequelize);
 db.skill = require("./skill.model.js")(sequelize, Sequelize);
 db.certification = require("./certification.model.js")(sequelize, Sequelize);
 db.interest = require("./interest.model.js")(sequelize, Sequelize);
+db.resumeReview = require("./resumeReview.model.js")(sequelize, Sequelize);
+db.resume = require("./resume.model.js")(sequelize, Sequelize);
+db.resumeLink = require("./resumeLink.model.js")(sequelize, Sequelize);
+db.resumeEducation = require("./resumeEducation.model.js")(sequelize, Sequelize);
+db.resumeExperience = require("./resumeExperience.model.js")(sequelize, Sequelize);
+db.resumeProject = require("./resumeProject.model.js")(sequelize, Sequelize);
+db.resumeSkill = require("./resumeSkill.model.js")(sequelize, Sequelize);
+db.resumeCertification = require("./resumeCertification.model.js")(sequelize, Sequelize);
+db.resumeInterest = require("./resumeInterest.model.js")(sequelize, Sequelize);
 
 module.exports = db;
