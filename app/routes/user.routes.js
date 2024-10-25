@@ -7,10 +7,12 @@ module.exports = (app) => {
     router.post("/", [authenticate], user.create);
   
     // Retrieve all People
-    router.get("/", [authenticate], user.findAll);
+    router.get("/", [authenticate], user.getAll);
   
     // Retrieve a single User with id
-    router.get("/:id", [authenticate], user.findOne);
+    router.get("/:id", [authenticate], user.getById);
+
+    // router.get("/:email", [authenticate], user.getByEmail);
   
     // Update a User with id
     router.put("/:id", [authenticate], user.update);

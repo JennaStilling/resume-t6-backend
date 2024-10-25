@@ -6,7 +6,7 @@ const userController = genericController(User);
 userController.getByEmail = async (req, res) => {
     try {
         const email = req.params.email;
-        const user = await User.findOne({ where: { email } });  // Use Sequelize's findOne
+        const user = await User.getById({ where: { email } });  // Use Sequelize's findOne
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }

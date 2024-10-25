@@ -22,6 +22,14 @@ const cor = cors({
 app.use(cor);
 app.options("*", cor);
 
+// var corsOptions = {
+//   origin: "http://localhost:8081/2024/project3/t6/",
+//   credentials: true,
+// };
+
+// app.use(cors(corsOptions));
+// app.options("*", cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -36,6 +44,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/admin.routes")(app);
 require("./app/routes/student.routes")(app);
