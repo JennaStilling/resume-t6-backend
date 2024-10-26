@@ -14,6 +14,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.session = require("./session.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.admin = require("./admin.model.js")(sequelize, Sequelize);
 db.student = require("./student.model.js")(sequelize, Sequelize);
@@ -238,5 +239,7 @@ db.resumeInterest.belongsTo(db.interest, {
   foreignKey: "interestId",
   onDelete: "SET NULL"
 });
+
+db.sequelize.sync({ alter: true });
 
 module.exports = db;
