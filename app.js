@@ -57,6 +57,16 @@ require("./app/routes/skill.routes")(app);
 require("./app/routes/certification.routes")(app);
 require("./app/routes/interest.routes")(app);
 
+require("./app/routes/resumeReview.routes")(app);
+require("./app/routes/resume.routes")(app);
+require("./app/routes/resumeLink.routes")(app);
+require("./app/routes/resumeEducation.routes")(app);
+require("./app/routes/resumeExperience.routes")(app);
+require("./app/routes/resumeProject.routes")(app);
+require("./app/routes/resumeSkill.routes")(app);
+require("./app/routes/resumeCertification.routes")(app);
+require("./app/routes/resumeInterest.routes")(app);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

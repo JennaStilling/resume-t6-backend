@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "bundle": "mkdir deploy && cp -r app server.js package.json package-lock.json tutorial-backend.service .env deploy"
+    "start": "node app.js",
+    "bundle": "mkdir deploy && cp -r app/config app/controllers app/models app/routes app.js package.json package-lock.json resume-backend-t6.service .env deploy"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
@@ -21,6 +21,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.11.3",
     "pug": "^3.0.3",
-    "sequelize": "^6.37.4"
+    "sequelize": "^6.37.4",
+    "sequelize-cli": "^6.2.0"
   }
 }
