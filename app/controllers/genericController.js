@@ -1,7 +1,6 @@
 const genericController = (model) => {
-    console.log("hello");
     console.log(model);
-
+    
     return {
         getAll: async (req, res) => {
             try {
