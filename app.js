@@ -45,8 +45,10 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/auth.routes")(app);
+require("./app/routes/role.routes")(app);
+require("./app/routes/userRole.routes")(app);
 require("./app/routes/user.routes")(app);
-require("./app/routes/admin.routes")(app);
+require("./app/routes/userResumeReview.routes")(app);
 require("./app/routes/student.routes")(app);
 require("./app/routes/link.routes")(app);
 require("./app/routes/education.routes")(app);

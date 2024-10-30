@@ -1,7 +1,7 @@
 const db = require("../models");
 const User = db.user;
 const genericController = require('./genericController.js');
-const userController = genericController(User);
+const userController = genericController(User, [], ['studentId']);
 
 userController.getByEmail = async (req, res) => {
     try {

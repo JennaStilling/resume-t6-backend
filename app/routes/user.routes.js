@@ -3,25 +3,40 @@ module.exports = (app) => {
     const { authenticate } = require("../authorization/authorization.js");
     var router = require("express").Router();
   
+    // Non student users REST requests
     // Create a new User
-    router.post("/", [authenticate], user.create);
+    router.post("/user/", [authenticate], user.create);
   
     // Retrieve all People
-    router.get("/", [authenticate], user.getAll);
+    router.get("/user/", [authenticate], user.getAll);
   
     // Retrieve a single User with id
-    router.get("/:id", [authenticate], user.getById);
+    router.get("/user/:id", [authenticate], user.getById);
 
     // router.get("/:email", [authenticate], user.getByEmail);
   
     // Update a User with id
-    router.put("/:id", [authenticate], user.update);
+    router.put("/user/:id", [authenticate], user.update);
   
     // Delete a User with id
-    router.delete("/:id", [authenticate], user.delete);
+    router.delete("/user/:id", [authenticate], user.delete);
   
     // Delete all User
-    router.delete("/", [authenticate], user.deleteAll);
+    router.delete("/user/", [authenticate], user.deleteAll);
+
+    // Student User REST request
+    // Create student user
+    router.post("/student/:studentId/user", [authenticate], user.create);
+
+    // Get student user, undecided between the two. Student and User have a one-to-one relationship, so both provide the same result
+    router.get("/student/:studentId/user/:id", [authenticate], user.getById);
+    router.get("/student/:studentId/user", [authenticate], user.getAll);
+
+    // Update student user 
+    router.put("/student/:studentId/user/:id", [authenticate], user.update);
+
+    // delete the student user
+    router.delete("/student/:studentId/user/:id", [authenticate], user.delete);
     
-    app.use("/course-t6/user", router);
+    app.use("/resume-t6", router);
   };
