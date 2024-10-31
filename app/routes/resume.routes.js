@@ -1,24 +1,30 @@
 module.exports = (app) => {
     const resume = require("../controllers/resume.controller.js");
+    const { authenticate } = require("../authorization/authorization.js");
     var router = require("express").Router();
 
-    // Create new Course
-    router.post("/", resume.create);
+    // REST Requests as a student
+    // Create new Resume For a student
+    router.post("/student/:studentId/resume/", [authenticate], resume.create);
 
-    // Retrieve all Courses
-    router.get("/", resume.getAll);
+    // Retrieve all Resumes for student
+    router.get("/student/:studentId/resume/", [authenticate], resume.getAll);
 
-    // Retreive a single Course with id
-    router.get("/:id", resume.getById);
+    // Retreive a single Resume with id
+    router.get("/student/:studentId/resume/:id", [authenticate], resume.getById);
 
-    // Update a Course with id
-    router.put("/:id", resume.update);
+    // Update a Resume with id
+    router.put("/student/:studentId/resume/:id", [authenticate], resume.update);
 
-    // Delete a course with id
-    router.delete("/:id", resume.delete);
+    // Delete a Resume with id
+    router.delete("/student/:studentId/resume/:id", [authenticate], resume.delete);
 
-    // Delete all Courses
-    router.delete("/", resume.deleteAll);
+    // Delete all Resumes for a student
+    router.delete("/student/:studentId/resume/", [authenticate], resume.deleteAll);
 
-    app.use("/course-t6/resume", router);
+    // REST Requests as a reviewer
+    // Get the Resume as the reviewer. The Reviewer should only be able to read the resume and nothing else. The suggestions are don in ResumeReview
+    router.get("/resumeReview/:resumeReviewId/resume/:id", [authenticate], resume.getById);
+
+    app.use("/resume-t6", router);
 };

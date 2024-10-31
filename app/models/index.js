@@ -15,8 +15,10 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.session = require("./session.model.js")(sequelize, Sequelize);
+db.role = require("./role.model.js")(sequelize, Sequelize);
+db.userRole = require("./userRole.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
-db.admin = require("./admin.model.js")(sequelize, Sequelize);
+db.userResumeReview = require("./userResumeReview.model.js")(sequelize, Sequelize);
 db.student = require("./student.model.js")(sequelize, Sequelize);
 db.link = require("./link.model.js")(sequelize, Sequelize);
 db.education = require("./education.model.js")(sequelize, Sequelize);
@@ -36,15 +38,51 @@ db.resumeSkill = require("./resumeSkill.model.js")(sequelize, Sequelize);
 db.resumeCertification = require("./resumeCertification.model.js")(sequelize, Sequelize);
 db.resumeInterest = require("./resumeInterest.model.js")(sequelize, Sequelize);
 
-//User to ResumeReview
-db.user.hasMany(db.resumeReview, {
-  as: "resumeReview",
+// Role hasMany UserRole
+db.role.hasMany(db.userRole, {
+  as: "userRole",
+  foreignKey: "roleId",
+  onDelete: "CASCADE"
+});
+db.userRole.belongsTo(db.role, {
+  as: "role",
+  foreignKey: "roleId",
+  onDelete: "SET NULL"
+});
+
+// User hasMany UserRole
+db.user.hasMany(db.userRole, {
+  as: "userRole",
   foreignKey: "userId",
   onDelete: "CASCADE"
 });
-db.resumeReview.belongsTo(db.user, {
+db.userRole.belongsTo(db.user, {
   as: "user",
   foreignKey: "userId",
+  onDelete: "SET NULL"
+});
+
+//User to UserResumeReview 
+db.user.hasMany(db.userResumeReview, {
+  as: "userResumeReview",
+  foreignKey: "userId",
+  onDelete: "CASCADE"
+});
+db.userResumeReview.belongsTo(db.user, {
+  as: "user",
+  foreignKey: "userId",
+  onDelete: "SET NULL"
+});
+
+//ResumeReview to UserResumeReview
+db.resumeReview.hasMany(db.userResumeReview, {
+  as: "userResumeReview",
+  foreignKey: "resumeReviewId",
+  onDelete: "CASCADE"
+});
+db.userResumeReview.belongsTo(db.resumeReview, {
+  as: "resumeReview",
+  foreignKey: "resumeReviewId",
   onDelete: "SET NULL"
 });
 
@@ -60,15 +98,27 @@ db.resumeReview.belongsTo(db.student, {
   onDelete: "SET NULL"
 });
 
+//Student to Resume
+db.student.hasMany(db.resume, {
+  as: "resume",
+  foreignKey: "studentId",
+  onDelete: "CASCADE"
+});
+db.resume.belongsTo(db.student, {
+  as: "student",
+  foreignKey: "studentId",
+  onDelete: "SET NULL"
+});
+
 //ResumeReview to Resume(?)
 db.resumeReview.hasOne(db.resume, {
   as: "resume",
-  foreignKey: "resumeId",
+  foreignKey: "resumeReviewId",
   onDelete: "CASCADE"
 });
 db.resume.belongsTo(db.resumeReview, {
   as: "resumeReview",
-  foreignKey: "resumeId",
+  foreignKey: "resumeReviewId",
   onDelete: "SET NULL"
 });
 
@@ -240,22 +290,7 @@ db.resumeInterest.belongsTo(db.interest, {
   onDelete: "SET NULL"
 });
 
-db.sequelize.sync({ alter: true });
-
-
 // Foreign keys
-// Admin to User
-db.admin.hasOne(db.user, {
-  as: "user",
-  foreignKey: "adminId",
-  onDelete: "SET NULL"
-});
-db.user.belongsTo(db.admin, {
-  as: "admin",
-  foreignKey: "adminId",
-  onDelete: "CASCADE"
-});
-
 // User to Student
 db.student.hasOne(db.user, {
   as: "user",
@@ -301,6 +336,18 @@ db.education.hasMany(db.course, {
 db.course.belongsTo(db.education, {
   as: "education",
   foreignKey: "educationId",
+  onDelete: "SET NULL"
+});
+
+// Course to Student
+db.student.hasMany(db.course, {
+  as: "course",
+  foreignKey: "studentId",
+  onDelete: "CASCADE"
+});
+db.course.belongsTo(db.student, {
+  as: "student",
+  foreignKey: "studentId",
   onDelete: "SET NULL"
 });
 
@@ -363,8 +410,6 @@ db.interest.belongsTo(db.student, {
   foreignKey: "studentId",
   onDelete: "SET NULL"
 });
-
-
 
 db.sequelize.sync({ alter: true });
 

@@ -1,24 +1,25 @@
 module.exports = (app) => {
     const resumeCertification = require("../controllers/resumeCertification.controller.js");
+    const { authenticate } = require("../authorization/authorization.js");
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", resumeCertification.create);
+    router.post("/", [authenticate], resumeCertification.create);
 
     // Retrieve all Courses
-    router.get("/", resumeCertification.getAll);
+    router.get("/", [authenticate], resumeCertification.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", resumeCertification.getById);
+    router.get("/:id", [authenticate], resumeCertification.getById);
 
     // Update a Course with id
-    router.put("/:id", resumeCertification.update);
+    router.put("/:id", [authenticate], resumeCertification.update);
 
     // Delete a course with id
-    router.delete("/:id", resumeCertification.delete);
+    router.delete("/:id", [authenticate], resumeCertification.delete);
 
     // Delete all Courses
-    router.delete("/", resumeCertification.deleteAll);
+    router.delete("/", [authenticate], resumeCertification.deleteAll);
 
-    app.use("/course-t6/resumeCertification", router);
+    app.use("/resume-t6/resume/:resumeId/certification/:certificationId/resumeCertification", router);
 };
