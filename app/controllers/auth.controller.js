@@ -1,6 +1,9 @@
 const db = require("../models");
 const authconfig = require("../config/auth.config");
 const User = db.user;
+const Student = db.student;
+const Role = db.role;
+const UserRole = db.userRole;
 const Session = db.session;
 const Op = db.Sequelize.Op;
 
@@ -80,10 +83,71 @@ exports.login = async (req, res) => {
       res.status(500).send({ message: err.message });
     });
 
+// !!!!!!!!!!!!!! NOTE: If the user information is already in the database, then it might not work, make sure to delete the user if you have already logged into the website
+
   // this lets us get the user id
   if (user.id === undefined) {
+    let userRole = {};
+    let student = {};
+    let role = {};
+
+    // Splices the email to only get the domain
+    let emailDomain = (user.email).slice((user.email).indexOf('@'), (user.email).length);
+
+    if (emailDomain === "@eagles.oc.edu"){
+      // Create student
+      await Student.create(student)
+      .then((data) => {
+        console.log("student was registered");
+        student = data.dataValues;
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+
+      // Create role with student as role
+      role = {
+        role_type: 'student',
+      }
+      await Role.create(role)
+      .then((data) => {
+        console.log("role was registered");
+        role = data.dataValues;
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+
+      // add to user the student Id
+      user = {
+        fName: firstName,
+        lName: lastName,
+        email: email,
+        studentId: student.id,
+      };
+    }
+    else if (emailDomain === "@oc.edu"){
+      // Create role for admin/teacher
+      role = {
+        role_type: 'admin',
+      }
+      await Role.create(role)
+      .then((data) => {
+        console.log("role was registered");
+        role = data.dataValues;
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+    }
+    else {
+      // Will need to add an error that is passed to the frontend when they use an unvalid email
+      console.log("The Email you used is not permitted on this website");
+    }
+
     console.log("need to get user's id");
     console.log(user);
+    // Create the user
     await User.create(user)
       .then((data) => {
         console.log("user was registered");
@@ -93,6 +157,23 @@ exports.login = async (req, res) => {
       .catch((err) => {
         res.status(500).send({ message: err.message });
       });
+
+      // Assign userRole down here
+      userRole = {
+        userId: user.id,
+        roleId: role.id,
+      }
+
+      await UserRole.create(userRole)
+      .then((data) => {
+        console.log("userRole was registered");
+        userRole = data.dataValues;
+        // res.send({ message: "User was registered successfully!" });
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+    
   } else {
     console.log(user);
     // doing this to ensure that the user's name is the one listed with Google

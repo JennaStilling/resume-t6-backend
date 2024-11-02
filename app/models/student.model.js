@@ -5,10 +5,6 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        phone_number: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
     });
     return Student;
 };
