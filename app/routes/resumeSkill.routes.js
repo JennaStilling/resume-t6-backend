@@ -4,22 +4,22 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", [authenticate], resumeSkill.create);
+    router.post("/resume/:resumeId/skill/:skillId/resumeSkill/", [authenticate], resumeSkill.create);
 
     // Retrieve all Courses
-    router.get("/", [authenticate], resumeSkill.getAll);
+    router.get("/resume/:resumeId/skill/:skillId/resumeSkill/", [authenticate], resumeSkill.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", [authenticate], resumeSkill.getById);
+    router.get("/resume/:resumeId/skill/:skillId/resumeSkill/:id", [authenticate], resumeSkill.getById);
 
     // Update a Course with id
-    router.put("/:id", [authenticate], resumeSkill.update);
+    router.put("/resume/:resumeId/skill/:skillId/resumeSkill/:id", [authenticate], resumeSkill.update);
 
     // Delete a course with id
-    router.delete("/:id", [authenticate], resumeSkill.delete);
+    router.delete("/resume/:resumeId/skill/:skillId/resumeSkill/:id", [authenticate], resumeSkill.delete);
 
     // Delete all Courses
-    router.delete("/", [authenticate], resumeSkill.deleteAll);
+    router.delete("/resume/:resumeId/skill/:skillId/resumeSkill/", [authenticate], resumeSkill.deleteAll);
 
-    app.use("/resume-t6/resume/:resumeId/skill/:skillId/resumeSkill", router);
+    app.use("/resume-t6", router);
 };

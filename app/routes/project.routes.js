@@ -4,22 +4,22 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", [authenticate], project.create);
+    router.post("/student/:studentId/project/", [authenticate], project.create);
 
     // Retrieve all Courses
-    router.get("/", [authenticate], project.getAll);
+    router.get("/student/:studentId/project/", [authenticate], project.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", [authenticate], project.getById);
+    router.get("/student/:studentId/project/:id", [authenticate], project.getById);
 
     // Update a Course with id
-    router.put("/:id", [authenticate], project.update);
+    router.put("/student/:studentId/project/:id", [authenticate], project.update);
 
     // Delete a course with id
-    router.delete("/:id", [authenticate], project.delete);
+    router.delete("/student/:studentId/project/:id", [authenticate], project.delete);
 
     // Delete all Courses
-    router.delete("/", [authenticate], project.deleteAll);
+    router.delete("/student/:studentId/project/", [authenticate], project.deleteAll);
 
-    app.use("/resume-t6/student/:studentId/project", router);
+    app.use("/resume-t6", router);
 };

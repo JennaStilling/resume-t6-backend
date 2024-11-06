@@ -4,22 +4,22 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", [authenticate], resumeLink.create);
+    router.post("/resume/:resumeId/link/:linkId/resumeLink/", [authenticate], resumeLink.create);
 
     // Retrieve all Courses
-    router.get("/", [authenticate], resumeLink.getAll);
+    router.get("/resume/:resumeId/link/:linkId/resumeLink/", [authenticate], resumeLink.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", [authenticate], resumeLink.getById);
+    router.get("/resume/:resumeId/link/:linkId/resumeLink/:id", [authenticate], resumeLink.getById);
 
     // Update a Course with id
-    router.put("/:id", [authenticate], resumeLink.update);
+    router.put("/resume/:resumeId/link/:linkId/resumeLink/:id", [authenticate], resumeLink.update);
 
     // Delete a course with id
-    router.delete("/:id", [authenticate], resumeLink.delete);
+    router.delete("/resume/:resumeId/link/:linkId/resumeLink/:id", [authenticate], resumeLink.delete);
 
     // Delete all Courses
-    router.delete("/", [authenticate], resumeLink.deleteAll);
+    router.delete("/resume/:resumeId/link/:linkId/resumeLink/", [authenticate], resumeLink.deleteAll);
 
-    app.use("/resume-t6/resume/:resumeId/link/:linkId/resumeLink", router);
+    app.use("/resume-t6", router);
 };

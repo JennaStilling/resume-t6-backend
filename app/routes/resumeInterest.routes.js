@@ -4,22 +4,22 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", [authenticate], resumeInterest.create);
+    router.post("/resume/:resumeId/interest/:interestId/resumeInterest/", [authenticate], resumeInterest.create);
 
     // Retrieve all Courses
-    router.get("/", [authenticate], resumeInterest.getAll);
+    router.get("/resume/:resumeId/interest/:interestId/resumeInterest/", [authenticate], resumeInterest.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", [authenticate], resumeInterest.getById);
+    router.get("/resume/:resumeId/interest/:interestId/resumeInterest/:id", [authenticate], resumeInterest.getById);
 
     // Update a Course with id
-    router.put("/:id", [authenticate], resumeInterest.update);
+    router.put("/resume/:resumeId/interest/:interestId/resumeInterest/:id", [authenticate], resumeInterest.update);
 
     // Delete a course with id
-    router.delete("/:id", [authenticate], resumeInterest.delete);
+    router.delete("/resume/:resumeId/interest/:interestId/resumeInterest/:id", [authenticate], resumeInterest.delete);
 
     // Delete all Courses
-    router.delete("/", [authenticate], resumeInterest.deleteAll);
+    router.delete("/resume/:resumeId/interest/:interestId/resumeInterest/", [authenticate], resumeInterest.deleteAll);
 
-    app.use("/resume-t6/resume/:resumeId/interest/:interestId/resumeInterest", router);
+    app.use("/resume-t6", router);
 };
