@@ -4,22 +4,22 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", [authenticate], resumeCertification.create);
+    router.post("/resume/:resumeId/certification/:certificationId/resumeCertification/", [authenticate], resumeCertification.create);
 
     // Retrieve all Courses
-    router.get("/", [authenticate], resumeCertification.getAll);
+    router.get("/resume/:resumeId/certification/:certificationId/resumeCertification/", [authenticate], resumeCertification.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", [authenticate], resumeCertification.getById);
+    router.get("/resume/:resumeId/certification/:certificationId/resumeCertification/:id", [authenticate], resumeCertification.getById);
 
     // Update a Course with id
-    router.put("/:id", [authenticate], resumeCertification.update);
+    router.put("/resume/:resumeId/certification/:certificationId/resumeCertification/:id", [authenticate], resumeCertification.update);
 
     // Delete a course with id
-    router.delete("/:id", [authenticate], resumeCertification.delete);
+    router.delete("/resume/:resumeId/certification/:certificationId/resumeCertification/:id", [authenticate], resumeCertification.delete);
 
     // Delete all Courses
-    router.delete("/", [authenticate], resumeCertification.deleteAll);
+    router.delete("/resume/:resumeId/certification/:certificationId/resumeCertification/", [authenticate], resumeCertification.deleteAll);
 
-    app.use("/resume-t6/resume/:resumeId/certification/:certificationId/resumeCertification", router);
+    app.use("/resume-t6", router);
 };
