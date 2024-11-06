@@ -86,7 +86,7 @@ const genericController = (model, associations = [], foreignKeys = []) => {
                 });
                 const deleted = await model.destroy(query);
                 if (deleted) {
-                    res.status(204).send();
+                    res.status(200).json({ message: 'Record deleted successfully' });
                 } else {
                     res.status(404).json({ error: 'Record not found' });
                 }
