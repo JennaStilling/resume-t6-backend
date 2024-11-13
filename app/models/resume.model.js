@@ -9,12 +9,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        contact_info: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
         template_type: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
         },
     });
