@@ -3,6 +3,8 @@ module.exports = (app) => {
     const { authenticate } = require("../authorization/authorization.js");
     var router = require("express").Router();
 
+    router.get("/resume/:resumeId/resumeProject/", [authenticate], resumeProject.getAll);
+
     // Create new Course
     router.post("/resume/:resumeId/project/:projectId/resumeProject/", [authenticate], resumeProject.create);
 
