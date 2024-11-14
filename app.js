@@ -68,6 +68,8 @@ require("./app/routes/resumeProject.routes")(app);
 require("./app/routes/resumeSkill.routes")(app);
 require("./app/routes/resumeCertification.routes")(app);
 require("./app/routes/resumeInterest.routes")(app);
+require("./app/routes/adminRole.routes")(app);
+require("./app/routes/reviewerRole.routes")(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

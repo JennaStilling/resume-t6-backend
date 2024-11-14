@@ -51,5 +51,19 @@ module.exports = (app) => {
     // delete the reviewer user
     router.delete("/adminRole/:adminId/user/:id", [authenticate], user.delete);
     
+
+    // Reviewer User REST request
+    // Create reviewer user
+    router.post("/reviewerRole/:reviewerId/user", [authenticate], user.create);
+
+    router.get("/reviewerRole/:reviewerId/user/:id", [authenticate], user.getById);
+    router.get("/reviewerRole/:reviewerId/user", [authenticate], user.getAll);
+
+    // Update reviewer user 
+    router.put("/reviewerRole/:reviewerId/user/:id", [authenticate], user.update);
+
+    // delete the reviewer user
+    router.delete("/reviewerRole/:reviewerId/user/:id", [authenticate], user.delete);
+    
     app.use("/resume-t6", router);
   };
