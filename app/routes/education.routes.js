@@ -1,24 +1,25 @@
 module.exports = (app) => {
     const education = require("../controllers/education.controller.js");
+    const { authenticate } = require("../authorization/authorization.js");
     var router = require("express").Router();
 
     // Create new Course
-    router.post("/", education.create);
+    router.post("/student/:studentId/education/", [authenticate], education.create);
 
     // Retrieve all Courses
-    router.get("/", education.getAll);
+    router.get("/student/:studentId/education/", [authenticate], education.getAll);
 
     // Retreive a single Course with id
-    router.get("/:id", education.getById);
+    router.get("/student/:studentId/education/:id", [authenticate], education.getById);
 
     // Update a Course with id
-    router.put("/:id", education.update);
+    router.put("/student/:studentId/education/:id", [authenticate], education.update);
 
     // Delete a course with id
-    router.delete("/:id", education.delete);
+    router.delete("/student/:studentId/education/:id", [authenticate], education.delete);
 
     // Delete all Courses
-    router.delete("/", education.deleteAll);
+    router.delete("/student/:studentId/education/", [authenticate], education.deleteAll);
 
-    app.use("/course-t6/education", router);
+    app.use("/resume-t6", router);
 };

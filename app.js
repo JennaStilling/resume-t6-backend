@@ -22,6 +22,14 @@ const cor = cors({
 app.use(cor);
 app.options("*", cor);
 
+// var corsOptions = {
+//   origin: "http://localhost:8081/2024/project3/t6/",
+//   credentials: true,
+// };
+
+// app.use(cors(corsOptions));
+// app.options("*", cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -36,8 +44,11 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+require("./app/routes/auth.routes")(app);
+require("./app/routes/role.routes")(app);
+require("./app/routes/userRole.routes")(app);
 require("./app/routes/user.routes")(app);
-require("./app/routes/admin.routes")(app);
+require("./app/routes/userResumeReview.routes")(app);
 require("./app/routes/student.routes")(app);
 require("./app/routes/link.routes")(app);
 require("./app/routes/education.routes")(app);
@@ -47,6 +58,18 @@ require("./app/routes/project.routes")(app);
 require("./app/routes/skill.routes")(app);
 require("./app/routes/certification.routes")(app);
 require("./app/routes/interest.routes")(app);
+
+require("./app/routes/resumeReview.routes")(app);
+require("./app/routes/resume.routes")(app);
+require("./app/routes/resumeLink.routes")(app);
+require("./app/routes/resumeEducation.routes")(app);
+require("./app/routes/resumeExperience.routes")(app);
+require("./app/routes/resumeProject.routes")(app);
+require("./app/routes/resumeSkill.routes")(app);
+require("./app/routes/resumeCertification.routes")(app);
+require("./app/routes/resumeInterest.routes")(app);
+require("./app/routes/adminRole.routes")(app);
+require("./app/routes/reviewerRole.routes")(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

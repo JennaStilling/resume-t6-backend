@@ -1,14 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-    const Admin = sequelize.define("admin", {
+    const Resume = sequelize.define("resume", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        phone_number: {
+        name: {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        template_type: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
     });
-    return Admin;
+    return Resume;
 };
