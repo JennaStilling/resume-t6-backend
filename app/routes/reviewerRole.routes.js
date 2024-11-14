@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const reviwerRole = require("../controllers/reviwerRole.controller.js");
+    const reviwerRole = require("../controllers/reviewerRole.controller.js");
     const { authenticate } = require("../authorization/authorization.js");
     var router = require("express").Router();
 
