@@ -37,6 +37,19 @@ module.exports = (app) => {
 
     // delete the student user
     router.delete("/student/:studentId/user/:id", [authenticate], user.delete);
+
+    // Admin User REST request
+    // Create reviewer user
+    router.post("/adminRole/:adminId/user", [authenticate], user.create);
+
+    router.get("/adminRole/:adminId/user/:id", [authenticate], user.getById);
+    router.get("/adminRole/:adminId/user", [authenticate], user.getAll);
+
+    // Update reviewer user 
+    router.put("/adminRole/:adminId/user/:id", [authenticate], user.update);
+
+    // delete the reviewer user
+    router.delete("/adminRole/:adminId/user/:id", [authenticate], user.delete);
     
 
     // Reviewer User REST request

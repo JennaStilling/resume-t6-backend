@@ -38,6 +38,7 @@ db.resumeSkill = require("./resumeSkill.model.js")(sequelize, Sequelize);
 db.resumeCertification = require("./resumeCertification.model.js")(sequelize, Sequelize);
 db.resumeInterest = require("./resumeInterest.model.js")(sequelize, Sequelize);
 db.reviewerRole = require("./reviewerRole.model.js")(sequelize, Sequelize);
+db.adminRole = require("./adminRole.model.js")(sequelize, Sequelize);
 
 // Role hasMany UserRole
 db.role.hasMany(db.userRole, {
@@ -413,7 +414,6 @@ db.interest.belongsTo(db.student, {
 });
 
 // Foreign keys
-// User to Admin Role
 db.reviewerRole.hasOne(db.user, {
   as: "user",
   foreignKey: "reviewerId",
@@ -422,6 +422,17 @@ db.reviewerRole.hasOne(db.user, {
 db.user.belongsTo(db.reviewerRole, {
   as: "reviewerRole",
   foreignKey: "reviewerId",
+  onDelete: "CASCADE"
+}); 
+
+db.adminRole.hasOne(db.user, {
+  as: "user",
+  foreignKey: "adminId",
+  onDelete: "SET NULL"
+});
+db.user.belongsTo(db.adminRole, {
+  as: "adminRole",
+  foreignKey: "adminId",
   onDelete: "CASCADE"
 });
 
