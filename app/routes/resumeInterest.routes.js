@@ -21,7 +21,7 @@ module.exports = (app) => {
     router.delete("/resume/:resumeId/interest/:interestId/resumeInterest/:id", [authenticate], resumeInterest.delete);
 
     // Delete all Courses
-    router.delete("/resume/:resumeId/interest/:interestId/resumeInterest/", [authenticate], resumeInterest.deleteAll);
+    router.delete("/resume/:resumeId/resumeInterest/", [authenticate], resumeInterest.deleteAll);
 
     app.use("/resume-t6", router);
 };
