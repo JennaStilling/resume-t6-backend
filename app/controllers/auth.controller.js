@@ -130,7 +130,7 @@ exports.login = async (req, res) => {
       // Create role for admin/teacher
       role = {
         role_type: 'admin',
-      }// change this to reviewer pls
+      } // change this to reviewer
       await Role.create(role)
       .then((data) => {
         console.log("role was registered");
