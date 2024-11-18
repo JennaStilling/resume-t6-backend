@@ -10,6 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        notes: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
     });
     return ResumeReview;
 };
