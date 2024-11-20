@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        suggestion: {
+        suggesstion: {
             type: Sequelize.STRING,
             allowNull: false,
         },
@@ -15,6 +15,5 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
     });
-
     return ResumeReview;
 };
