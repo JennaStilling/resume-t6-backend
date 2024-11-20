@@ -9,6 +9,9 @@ module.exports = (app) => {
     // Retrieve all Courses
     router.get("/user/:userId/resumeReview/:resumeReviewId/userResumeReview/", [authenticate], userResumeReview.getAll);
 
+    // Retrieve all userResumeReviews by userId
+    router.get("/user/:userId/userResumeReview/", [authenticate], userResumeReview.getAllByUserId);
+
     // Retreive a single Course with id
     router.get("/user/:userId/resumeReview/:resumeReviewId/userResumeReview/:id", [authenticate], userResumeReview.getById);
 
@@ -21,5 +24,5 @@ module.exports = (app) => {
     // Delete all Courses
     router.delete("/user/:userId/resumeReview/:resumeReviewId/userResumeReview/", [authenticate], userResumeReview.deleteAll);
 
-    app.use("/resume-t6", router); // May need to change
+    app.use("/resume-t6", router);
 };
