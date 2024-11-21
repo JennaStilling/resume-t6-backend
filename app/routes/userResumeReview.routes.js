@@ -9,6 +9,9 @@ module.exports = (app) => {
     // Retrieve all Courses
     router.get("/user/:userId/resumeReview/:resumeReviewId/userResumeReview/", [authenticate], userResumeReview.getAll);
 
+    // Retrieve all userResumeReviews by userId
+    router.get("/user/:userId/userResumeReview/", [authenticate], userResumeReview.getAllByUserId);
+
     // Retreive a single Course with id
     router.get("/user/:userId/resumeReview/:resumeReviewId/userResumeReview/:id", [authenticate], userResumeReview.getById);
 
