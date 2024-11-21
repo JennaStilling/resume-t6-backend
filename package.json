@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "bundle": "mkdir deploy && cp -r app app/config app/controllers app/models app/routes app.js package.json package-lock.json resume-backend-t6.service .env deploy"
+    "bundle": "mkdir deploy && cp -r app app.js package.json package-lock.json resume-backend-t6.service .env deploy"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
