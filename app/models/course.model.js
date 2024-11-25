@@ -10,8 +10,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         grade: {
-            type: Sequelize.DECIMAL,
-            allowNull: false,
+            type: Sequelize.STRING,
+            allowNull: true,
         },
     });
     return Course;
