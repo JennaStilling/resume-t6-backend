@@ -10,8 +10,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         grade: {
-            type: Sequelize.DECIMAL,
-            allowNull: false,
+            type: Sequelize.ENUM('A', 'B', 'C', 'D', 'F', 'P*'),
+            allowNull: true,
         },
     });
     return Course;
