@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         grade: {
-            type: Sequelize.ENUM('A', 'B', 'C', 'D', 'F', 'P*'),
+            type: Sequelize.STRING,
             allowNull: true,
         },
     });
