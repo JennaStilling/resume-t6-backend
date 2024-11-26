@@ -116,12 +116,10 @@ db.resume.belongsTo(db.student, {
 db.resumeReview.hasOne(db.resume, {
   as: "resume",
   foreignKey: "resumeReviewId",
-  onDelete: "CASCADE"
 });
 db.resume.belongsTo(db.resumeReview, {
   as: "resumeReview",
   foreignKey: "resumeReviewId",
-  onDelete: "SET NULL"
 });
 
 //Resume to ResumeLink
