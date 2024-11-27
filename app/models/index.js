@@ -243,6 +243,30 @@ db.resumeCourse.belongsTo(db.resume, {
   foreignKey: "resumeId",
   onDelete: "SET NULL"
 });
+
+// Education to ResumeCourse
+db.education.hasMany(db.resumeCourse, {
+  as: "resumeCourse",
+  foreignKey: "educationId",
+  onDelete: "CASCADE"
+});
+db.resumeCourse.belongsTo(db.education, {
+  as: "education",
+  foreignKey: "educationId",
+  onDelete: "SET NULL"
+});
+
+// Course to ResumeCourse
+db.course.hasMany(db.resumeCourse, {
+  as: "resumeCourse",
+  foreignKey: "courseId",
+  onDelete: "CASCADE"
+});
+db.resumeCourse.belongsTo(db.course, {
+  as: "course",
+  foreignKey: "courseId",
+  onDelete: "SET NULL"
+});
 // END OF COURSE CHANGES ------------------
 
 //Experience to ResumeExperience
