@@ -11,7 +11,14 @@ var cors = require("cors");
 var app = express();
 
 var db = require("./app/models");
-db.sequelize.sync();
+
+// Sync the database
+db.sequelize.sync({ alter: true }).then(() => {
+  console.log("Database synchronized.");
+}).catch(err => {
+  console.error("Error synchronizing the database:", err);
+});
+
 
 const cor = cors({
   origin: function (origin, callback) {
@@ -63,6 +70,7 @@ require("./app/routes/resumeReview.routes")(app);
 require("./app/routes/resume.routes")(app);
 require("./app/routes/resumeLink.routes")(app);
 require("./app/routes/resumeEducation.routes")(app);
+require("./app/routes/resumeCourse.routes")(app);
 require("./app/routes/resumeExperience.routes")(app);
 require("./app/routes/resumeProject.routes")(app);
 require("./app/routes/resumeSkill.routes")(app);
