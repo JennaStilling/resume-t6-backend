@@ -101,482 +101,98 @@ exports.login = async (req, res) => {
       user.email.length
     );
 
-    /* area for each individual specific email address for testing -- make sure to delete all student ones (Arrian, Abby, Anthony, Bill, Jenna) for actual production if deployed
-      seperate areas are redundant, but allows for specific testing on individual users
-    */
-
-    if (user.email === "charlotte.hamil@oc.edu") {
-      // Create role for admin
-      await Admin.create(admin)
-        .then((data) => {
-          console.log("admin was registered");
-          admin = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "admin",
-      }; // change this to reviewer
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      await Reviewer.create(reviewer)
-        .then((data) => {
-          console.log("reviewer was registered");
-          reviewer = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for reviewer
-      role = {
-        role_type: "reviewer",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for student
-      await Student.create(student)
-        .then((data) => {
-          console.log("student was registered");
-          student = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "student",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // add to user the appropiate id(s)
-      user = {
-        fName: firstName,
-        lName: lastName,
-        email: email,
-        studentId: student.id,
-        reviewerId: reviewer.id,
-        adminId: admin.id,
-      };
-    }
-
-    if (user.email === "anthony.pham@eagles.oc.edu") {
-      // Create role for admin
-      await Admin.create(admin)
-        .then((data) => {
-          console.log("admin was registered");
-          admin = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "admin",
-      }; // change this to reviewer
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      await Reviewer.create(reviewer)
-        .then((data) => {
-          console.log("reviewer was registered");
-          reviewer = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for reviewer
-      role = {
-        role_type: "reviewer",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for student
-      await Student.create(student)
-        .then((data) => {
-          console.log("student was registered");
-          student = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "student",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // add to user the appropiate id(s)
-      user = {
-        fName: firstName,
-        lName: lastName,
-        email: email,
-        studentId: student.id,
-        reviewerId: reviewer.id,
-        adminId: admin.id,
-      };
-    }
-
-    if (user.email === "abby.crockett@eagles.oc.edu") {
-      // Create role for admin
-      await Admin.create(admin)
-        .then((data) => {
-          console.log("admin was registered");
-          admin = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "admin",
-      }; // change this to reviewer
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      await Reviewer.create(reviewer)
-        .then((data) => {
-          console.log("reviewer was registered");
-          reviewer = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for reviewer
-      role = {
-        role_type: "reviewer",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for student
-      await Student.create(student)
-        .then((data) => {
-          console.log("student was registered");
-          student = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "student",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // add to user the appropiate id(s)
-      user = {
-        fName: firstName,
-        lName: lastName,
-        email: email,
-        studentId: student.id,
-        reviewerId: reviewer.id,
-        adminId: admin.id,
-      };
-    }
-
-    if (user.email === "bill.le@eagles.oc.edu") {
-      // Create role for admin
-      await Admin.create(admin)
-        .then((data) => {
-          console.log("admin was registered");
-          admin = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "admin",
-      }; // change this to reviewer
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      await Reviewer.create(reviewer)
-        .then((data) => {
-          console.log("reviewer was registered");
-          reviewer = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for reviewer
-      role = {
-        role_type: "reviewer",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for student
-      await Student.create(student)
-        .then((data) => {
-          console.log("student was registered");
-          student = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "student",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // add to user the appropiate id(s)
-      user = {
-        fName: firstName,
-        lName: lastName,
-        email: email,
-        studentId: student.id,
-        reviewerId: reviewer.id,
-        adminId: admin.id,
-      };
-    }
-
-    if (user.email === "arriannaomi.a.taton@eagles.oc.edu") {
-      // Create role for admin
-      await Admin.create(admin)
-        .then((data) => {
-          console.log("admin was registered");
-          admin = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "admin",
-      }; // change this to reviewer
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      await Reviewer.create(reviewer)
-        .then((data) => {
-          console.log("reviewer was registered");
-          reviewer = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for reviewer
-      role = {
-        role_type: "reviewer",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for student
-      await Student.create(student)
-        .then((data) => {
-          console.log("student was registered");
-          student = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "student",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // add to user the appropiate id(s)
-      user = {
-        fName: firstName,
-        lName: lastName,
-        email: email,
-        studentId: student.id,
-        reviewerId: reviewer.id,
-        adminId: admin.id,
-      };
-    }
-
-    if (user.email === "j.stilling@eagles.oc.edu") {
-      // Create role for admin
-      await Admin.create(admin)
-        .then((data) => {
-          console.log("admin was registered");
-          admin = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "admin",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for reviewer
-      await Reviewer.create(reviewer)
-        .then((data) => {
-          console.log("reviewer was registered");
-          reviewer = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "reviewer",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // Create role for student
-      await Student.create(student)
-        .then((data) => {
-          console.log("student was registered");
-          student = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      role = {
-        role_type: "student",
-      };
-      await Role.create(role)
-        .then((data) => {
-          console.log("role was registered");
-          role = data.dataValues;
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
-
-      // add to user the appropiate id(s)
-      user = {
-        fName: firstName,
-        lName: lastName,
-        email: email,
-        studentId: student.id,
-        reviewerId: reviewer.id,
-        adminId: admin.id,
-      };
-    }
+    // area for each individual specific email address for testing -- make sure to delete all student ones (Arrian, Abby, Anthony, Bill, Jenna) for actual production if deployed
     
+    if (
+      user.email === "charlotte.hamil@oc.edu" ||
+      user.email === "david.north@oc.edu" ||
+      user.email === "j.stilling@eagles.oc.edu" ||
+      user.email === "arriannaomi.a.taton@eagles.oc.edu" ||
+      user.email === "bill.le@eagles.oc.edu" ||
+      user.email === "abby.crockett@eagles.oc.edu" ||
+      user.email === "anthony.pham@eagles.oc.edu"
+    ) {
+      console.log("Inside user email if statement");
+      // Create role for admin
+      await Admin.create(admin)
+        .then((data) => {
+          console.log("admin was registered");
+          admin = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
 
+      role = {
+        role_type: "admin",
+      };
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // Create role for reviewer
+      await Reviewer.create(reviewer)
+        .then((data) => {
+          console.log("reviewer was registered");
+          reviewer = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      role = {
+        role_type: "reviewer",
+      };
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // Create role for student
+      await Student.create(student)
+        .then((data) => {
+          console.log("student was registered");
+          student = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      role = {
+        role_type: "student",
+      };
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // add to user the appropiate id(s)
+      user = {
+        fName: firstName,
+        lName: lastName,
+        email: email,
+        studentId: student.id,
+        reviewerId: reviewer.id,
+        adminId: admin.id,
+      };
+    }
 
     // if the above if statements are commented out, then remove the else below
     else if (emailDomain === "@eagles.oc.edu") {
+      console.log("USER EMAIL: " + user.email);
       // Create student
       await Student.create(student)
         .then((data) => {
@@ -607,9 +223,7 @@ exports.login = async (req, res) => {
         email: email,
         studentId: student.id,
       };
-    } 
-    
-    else if (emailDomain === "@oc.edu") {
+    } else if (emailDomain === "@oc.edu") {
       // Create reviewer
       await Reviewer.create(reviewer)
         .then((data) => {
@@ -641,8 +255,7 @@ exports.login = async (req, res) => {
         reviewerId: reviewer.id,
       };
     } else {
-
-    /* admin specific code
+      /* admin specific code
 await Admin.create(admin)
       .then((data) => {
         console.log("admin was registered");
