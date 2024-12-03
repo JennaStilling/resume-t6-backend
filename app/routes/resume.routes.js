@@ -22,6 +22,12 @@ module.exports = (app) => {
     // Delete all Resumes for a student
     router.delete("/student/:studentId/resume/", [authenticate], resume.deleteAll);
 
+    // REST Requests as a reviewer
+    // Get the Resume as the reviewer. The Reviewer should only be able to read the resume and nothing else. The suggestions are don in ResumeReview
+    router.get("/resumeReview/:resumeReviewId/resume/:id", [authenticate], resume.getById);
+
+    router.get("/resumeReview/:resumeReviewId/resume", [authenticate], resume.getAll);
+
     // Upload PNG image for a Resume
     router.post("/student/:studentId/resume/:id/upload", [authenticate], resume.uploadImage);
 
