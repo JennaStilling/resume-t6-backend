@@ -13,6 +13,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
+        image: {
+            type: Sequelize.TEXT('long'),
+            allowNull: true,
+        },
     });
     return Resume;
 };
