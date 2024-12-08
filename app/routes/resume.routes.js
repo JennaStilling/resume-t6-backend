@@ -10,7 +10,7 @@ module.exports = (app) => {
     // Retrieve all Resumes for student
     router.get("/student/:studentId/resume/", [authenticate], resume.getAll);
 
-    // Retreive a single Resume with id
+    // Retrieve a single Resume with id
     router.get("/student/:studentId/resume/:id", [authenticate], resume.getById);
 
     // Update a Resume with id
@@ -27,6 +27,9 @@ module.exports = (app) => {
     router.get("/resumeReview/:resumeReviewId/resume/:id", [authenticate], resume.getById);
 
     router.get("/resumeReview/:resumeReviewId/resume", [authenticate], resume.getAll);
+
+    // Upload PNG image for a Resume
+    router.post("/student/:studentId/resume/:id/upload", [authenticate], resume.uploadImage);
 
     app.use("/resume-t6", router);
 };

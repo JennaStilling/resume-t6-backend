@@ -2,6 +2,8 @@ const db = require("../models");
 const authconfig = require("../config/auth.config");
 const User = db.user;
 const Student = db.student;
+const Reviewer = db.reviewerRole;
+const Admin = db.adminRole;
 const Role = db.role;
 const UserRole = db.userRole;
 const Session = db.session;
@@ -83,40 +85,136 @@ exports.login = async (req, res) => {
       res.status(500).send({ message: err.message });
     });
 
-// !!!!!!!!!!!!!! NOTE: If the user information is already in the database, then it might not work, make sure to delete the user if you have already logged into the website
+  // !!!!!!!!!!!!!! NOTE: If the user information is already in the database, then it might not work, make sure to delete the user if you have already logged into the website
 
   // this lets us get the user id
   if (user.id === undefined) {
     let userRole = {};
     let student = {};
+    let admin = {};
+    let reviewer = {};
     let role = {};
 
     // Splices the email to only get the domain
-    let emailDomain = (user.email).slice((user.email).indexOf('@'), (user.email).length);
+    let emailDomain = user.email.slice(
+      user.email.indexOf("@"),
+      user.email.length
+    );
 
-    if (emailDomain === "@eagles.oc.edu"){
+    // area for each individual specific email address for testing -- make sure to delete all student ones (Arrian, Abby, Anthony, Bill, Jenna) for actual production if deployed
+    
+    if (
+      user.email === "charlotte.hamil@oc.edu" ||
+      user.email === "david.north@oc.edu" ||
+      user.email === "j.stilling@eagles.oc.edu" ||
+      user.email === "arriannaomi.a.taton@eagles.oc.edu" ||
+      user.email === "bill.le@eagles.oc.edu" ||
+      user.email === "abby.crockett@eagles.oc.edu" ||
+      user.email === "anthony.pham@eagles.oc.edu"
+    ) {
+      console.log("Inside user email if statement");
+      // Create role for admin
+      await Admin.create(admin)
+        .then((data) => {
+          console.log("admin was registered");
+          admin = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      role = {
+        role_type: "admin",
+      };
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // Create role for reviewer
+      await Reviewer.create(reviewer)
+        .then((data) => {
+          console.log("reviewer was registered");
+          reviewer = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      role = {
+        role_type: "reviewer",
+      };
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // Create role for student
+      await Student.create(student)
+        .then((data) => {
+          console.log("student was registered");
+          student = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      role = {
+        role_type: "student",
+      };
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // add to user the appropiate id(s)
+      user = {
+        fName: firstName,
+        lName: lastName,
+        email: email,
+        studentId: student.id,
+        reviewerId: reviewer.id,
+        adminId: admin.id,
+      };
+    }
+
+    // if the above if statements are commented out, then remove the else below
+    else if (emailDomain === "@eagles.oc.edu") {
+      console.log("USER EMAIL: " + user.email);
       // Create student
       await Student.create(student)
-      .then((data) => {
-        console.log("student was registered");
-        student = data.dataValues;
-      })
-      .catch((err) => {
-        res.status(500).send({ message: err.message });
-      });
+        .then((data) => {
+          console.log("student was registered");
+          student = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
 
       // Create role with student as role
       role = {
-        role_type: 'student',
-      }
+        role_type: "student",
+      };
       await Role.create(role)
-      .then((data) => {
-        console.log("role was registered");
-        role = data.dataValues;
-      })
-      .catch((err) => {
-        res.status(500).send({ message: err.message });
-      });
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
 
       // add to user the student Id
       user = {
@@ -125,9 +223,49 @@ exports.login = async (req, res) => {
         email: email,
         studentId: student.id,
       };
-    }
-    else if (emailDomain === "@oc.edu"){
-      // Create role for admin/teacher
+    } else if (emailDomain === "@oc.edu") {
+      // Create reviewer
+      await Reviewer.create(reviewer)
+        .then((data) => {
+          console.log("reviewer was registered");
+          reviewer = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // Create role for admin/teacher - this will be the reviwerer role by default
+      role = {
+        role_type: "reviewer",
+      }; // change this to reviewer
+      await Role.create(role)
+        .then((data) => {
+          console.log("role was registered");
+          role = data.dataValues;
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+
+      // add to user the reviewer Id
+      user = {
+        fName: firstName,
+        lName: lastName,
+        email: email,
+        reviewerId: reviewer.id,
+      };
+    } else {
+      /* admin specific code
+await Admin.create(admin)
+      .then((data) => {
+        console.log("admin was registered");
+        admin = data.dataValues;
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+
+      // Create role for admin/teacher - this will be the reviwerer role by default
       role = {
         role_type: 'admin',
       } // change this to reviewer
@@ -139,8 +277,16 @@ exports.login = async (req, res) => {
       .catch((err) => {
         res.status(500).send({ message: err.message });
       });
-    }
-    else {
+
+      // add to user the reviewer Id
+      user = {
+        fName: firstName,
+        lName: lastName,
+        email: email,
+        reviewerId: reviewer.id,
+        adminId: admin.id
+      };
+      */
       // Will need to add an error that is passed to the frontend when they use an unvalid email
       console.log("The Email you used is not permitted on this website");
     }
@@ -158,13 +304,13 @@ exports.login = async (req, res) => {
         res.status(500).send({ message: err.message });
       });
 
-      // Assign userRole down here
-      userRole = {
-        userId: user.id,
-        roleId: role.id,
-      }
+    // Assign userRole down here
+    userRole = {
+      userId: user.id,
+      roleId: role.id,
+    };
 
-      await UserRole.create(userRole)
+    await UserRole.create(userRole)
       .then((data) => {
         console.log("userRole was registered");
         userRole = data.dataValues;
@@ -173,7 +319,6 @@ exports.login = async (req, res) => {
       .catch((err) => {
         res.status(500).send({ message: err.message });
       });
-    
   } else {
     console.log(user);
     // doing this to ensure that the user's name is the one listed with Google
